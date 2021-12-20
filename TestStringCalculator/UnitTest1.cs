@@ -23,6 +23,12 @@ namespace TestStringCalculator
             var result = StringCalculator.Add("1,2");
             Assert.Equal(3, result);
         }
+        [Fact]
+        public void Should_Return_Sum_Of_Multiple_Numbers()
+        {
+            var result = StringCalculator.Add("1,2,6,22");
+            Assert.Equal(31, result);
+        }
 
     }
 }
