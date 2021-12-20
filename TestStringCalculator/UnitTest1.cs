@@ -41,6 +41,12 @@ namespace TestStringCalculator
             var result = StringCalculator.Add("//;\n2;3");
             Assert.Equal(5, result);
         }
+        [Fact]
+        public void Add_method_should_support_another_delimiter_declaration()
+        {
+            var result = StringCalculator.Add("//T\n2T3");
+            Assert.Equal(5, result);
+        }
 
     }
 }
