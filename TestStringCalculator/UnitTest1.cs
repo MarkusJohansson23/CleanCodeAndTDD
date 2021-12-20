@@ -17,5 +17,12 @@ namespace TestStringCalculator
             var result = StringCalculator.Add("1");
             Assert.Equal(1, result);
         }
+        [Fact]
+        public void Should_Return_Sum_Of_Two_Numbers()
+        {
+            var result = StringCalculator.Add("1,2");
+            Assert.Equal(3, result);
+        }
+
     }
 }
