@@ -28,11 +28,18 @@ namespace TestStringCalculator
         {
             var result = StringCalculator.Add("1,2,6,22");
             Assert.Equal(31, result);
-        }[Fact]
+        }
+        [Fact]
         public void Add_method_should_be_able_to_handle_new_line()
         {
             var result = StringCalculator.Add("1\n2,3");
             Assert.Equal(6, result);
+        }
+        [Fact]
+        public void Add_method_should_support_delimiter_declaration()
+        {
+            var result = StringCalculator.Add("//;\n2;3");
+            Assert.Equal(5, result);
         }
 
     }
