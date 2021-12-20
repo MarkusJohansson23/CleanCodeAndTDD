@@ -28,8 +28,8 @@ namespace CleanCodeAndTDD
 
                         if (HasMultipleDelimiters(delimiterString))
                         {
-                            var delimiterArray = delimiterString.Split(new string[] {"[", "]"}, StringSplitOptions.None);
-                            delimiterArray = delimiterArray.Where(s => ! string.IsNullOrEmpty(s)).ToArray();
+                            var delimiterArray = delimiterString.Split(new string[] { "[", "]" }, StringSplitOptions.None);
+                            delimiterArray = delimiterArray.Where(s => !string.IsNullOrEmpty(s)).ToArray();
                             stringArray = FindStringArray(numbers, delimiterArray);
                             return SumOfNumbers(stringArray);
                         }
