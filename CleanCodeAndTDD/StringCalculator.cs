@@ -41,7 +41,16 @@ namespace CleanCodeAndTDD
             {
                 throw new ArgumentException($"Negatives not allowed {ListNegatives(numberArray)}");
             }
-            return stringArray.Select(str => int.Parse(str)).Sum();
+            if (HasNumbersGreaterThan1000(numberArray))
+            {
+                numberArray = numberArray.Where(n => n <= 1000);
+            }
+            return numberArray.Sum();
+        }
+
+        private static bool HasNumbersGreaterThan1000(IEnumerable<int> numberArray)
+        {
+            return numberArray.Any(num => num > 1000);
         }
 
         private static string ListNegatives(IEnumerable<int> numberArray)

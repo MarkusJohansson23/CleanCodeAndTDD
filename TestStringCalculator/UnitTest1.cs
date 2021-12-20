@@ -65,6 +65,12 @@ namespace TestStringCalculator
             var ae = Assert.Throws<ArgumentException>(() => StringCalculator.Add("-4, 2, 4, -1, -6"));
             Assert.Equal("Negatives not allowed -4, -1, -6", ae.Message);
         }
+        [Fact]
+        public void Add_method_should_ignore_numbers_over_1000()
+        {
+            var result = StringCalculator.Add("1004, 6, 1, 1000");
+            Assert.Equal(1007, result);
+        }
 
     }
 }
