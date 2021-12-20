@@ -11,11 +11,11 @@ namespace TestStringCalculator
             var result = StringCalculator.Add("");
             Assert.Equal(0, result);
         }
-        //[Fact]
-        //public void Should_Return_One_If_Input_Is_One()
-        //{
-        //    var result = StringCalculator.Add("1");
-        //    Assert.Equal(1, result);
-        //}
+        [Fact]
+        public void Should_Return_One_If_Input_Is_One()
+        {
+            var result = StringCalculator.Add("1");
+            Assert.Equal(1, result);
+        }
     }
 }
