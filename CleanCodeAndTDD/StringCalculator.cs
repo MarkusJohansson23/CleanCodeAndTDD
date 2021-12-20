@@ -18,21 +18,48 @@ namespace CleanCodeAndTDD
             {
                 string[] stringArray;
                 if (HasDelimiterDeclaration(numbers))
-                { 
+                {
                     char delimiter = numbers.Skip(2).Take(1).First();
-                    string? cleanedString = numbers.Substring(3);
-                    stringArray = cleanedString.Split(delimiter);
-                    return stringArray.Select(str => int.Parse(str)).Sum();
+                    stringArray = FindStringArray(numbers, delimiter);
+                    return SumOfNumbers(stringArray);
                 }
 
                 var separators = new string[] { ",", "\n" };
                 stringArray = numbers.Split(separators, StringSplitOptions.None);
-                return stringArray.Select(str => int.Parse(str)).Sum();
+                return SumOfNumbers(stringArray);
             }
             else
             {
                 return int.Parse(numbers);
             }
+        }
+
+        private static int SumOfNumbers(string[] stringArray)
+        {
+            var numberArray = stringArray.Select(str => int.Parse(str));
+            if (HasNegatives(numberArray))
+            {
+                throw new ArgumentException($"Negatives not allowed {ListNegatives(numberArray)}");
+            }
+            return stringArray.Select(str => int.Parse(str)).Sum();
+        }
+
+        private static string ListNegatives(IEnumerable<int> numberArray)
+        {
+            return string.Join(", ", numberArray.Where(n => n < 0));
+        }
+
+        private static bool HasNegatives(IEnumerable<int> numberArray)
+        {
+            return numberArray.Any(num => num < 0);
+        }
+
+        private static string[] FindStringArray(string numbers, char delimiter)
+        {
+            string[] stringArray;
+            string? cleanedString = numbers.Substring(3);
+            stringArray = cleanedString.Split(delimiter);
+            return stringArray;
         }
 
         private static bool HasDelimiterDeclaration(string numbers)

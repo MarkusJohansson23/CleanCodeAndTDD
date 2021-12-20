@@ -1,4 +1,5 @@
 using CleanCodeAndTDD;
+using System;
 using Xunit;
 
 namespace TestStringCalculator
@@ -46,6 +47,23 @@ namespace TestStringCalculator
         {
             var result = StringCalculator.Add("//T\n2T3");
             Assert.Equal(5, result);
+        }
+        [Fact]
+        public void Add_method_should_throw_an_exeption_if_input_contains_negative_number()
+        {
+            Assert.Throws<ArgumentException>(() => StringCalculator.Add("-4, 2, 4"));
+        }
+        [Fact]
+        public void Add_method_should_return_argument_exeption_message()
+        {
+            var ae = Assert.Throws<ArgumentException>(() => StringCalculator.Add("-4, 2, 4"));
+            Assert.Equal("Negatives not allowed -4", ae.Message);
+        }
+        [Fact]
+        public void Add_method_should_return_message_with_all_numbers_if_input_contains_negative_number()
+        {
+            var ae = Assert.Throws<ArgumentException>(() => StringCalculator.Add("-4, 2, 4, -1, -6"));
+            Assert.Equal("Negatives not allowed -4, -1, -6", ae.Message);
         }
 
     }
