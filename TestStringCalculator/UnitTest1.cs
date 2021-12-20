@@ -71,6 +71,13 @@ namespace TestStringCalculator
             var result = StringCalculator.Add("1004, 6, 1, 1000");
             Assert.Equal(1007, result);
         }
+        [Fact]
+        public void Add_method_should_include_delimiter_of_any_lenght()
+        {
+            var result = StringCalculator.Add("//[***]\n1***2***3");
+            Assert.Equal(6, result);
+        }
+
 
     }
 }

@@ -19,8 +19,18 @@ namespace CleanCodeAndTDD
                 string[] stringArray;
                 if (HasDelimiterDeclaration(numbers))
                 {
+                    if (IsDelimiterString(numbers))
+                    {
+                        var delimiterStartIndex = 3;
+                        var delimiterEndIndex = numbers.IndexOf("]\n");
+                        var delimiterLenght = delimiterEndIndex - delimiterStartIndex;
+                        var delimiterString = numbers.Substring(delimiterStartIndex, delimiterLenght);
+
+                        stringArray = FindStringArray(numbers, new string[] { delimiterString });
+                        return SumOfNumbers(stringArray);
+                    }
                     char delimiter = numbers.Skip(2).Take(1).First();
-                    stringArray = FindStringArray(numbers, delimiter);
+                    stringArray = FindStringArray(numbers, new string[] { delimiter.ToString() });
                     return SumOfNumbers(stringArray);
                 }
 
@@ -32,6 +42,11 @@ namespace CleanCodeAndTDD
             {
                 return int.Parse(numbers);
             }
+        }
+
+        private static bool IsDelimiterString(string numbers)
+        {
+            return numbers.StartsWith("//[") && numbers.Contains("]\n");
         }
 
         private static int SumOfNumbers(string[] stringArray)
@@ -63,11 +78,12 @@ namespace CleanCodeAndTDD
             return numberArray.Any(num => num < 0);
         }
 
-        private static string[] FindStringArray(string numbers, char delimiter)
+        private static string[] FindStringArray(string numbers, string[] delimiter)
         {
             string[] stringArray;
-            string? cleanedString = numbers.Substring(3);
-            stringArray = cleanedString.Split(delimiter);
+            var startIndexOfString = numbers.IndexOf("\n");
+            string? cleanedString = numbers.Substring(startIndexOfString + 1);
+            stringArray = cleanedString.Split(delimiter, StringSplitOptions.None);
             return stringArray;
         }
 
