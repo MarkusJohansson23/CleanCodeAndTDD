@@ -77,6 +77,18 @@ namespace TestStringCalculator
             var result = StringCalculator.Add("//[***]\n1***2***3");
             Assert.Equal(6, result);
         }
+        [Fact]
+        public void Add_method_should_include_multiple_delimiter()
+        {
+            var result = StringCalculator.Add("//[*][%]\n1*2%3");
+            Assert.Equal(6, result);
+        }
+        [Fact]
+        public void Add_method_should_include_multiple_delimiters_with_multiple_characters()
+        {
+            var result = StringCalculator.Add("//[******][%%][L]\n1******2%%3L5");
+            Assert.Equal(11, result);
+        }
 
 
     }

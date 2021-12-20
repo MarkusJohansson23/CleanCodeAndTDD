@@ -26,6 +26,13 @@ namespace CleanCodeAndTDD
                         var delimiterLenght = delimiterEndIndex - delimiterStartIndex;
                         var delimiterString = numbers.Substring(delimiterStartIndex, delimiterLenght);
 
+                        if (HasMultipleDelimiters(delimiterString))
+                        {
+                            var delimiterArray = delimiterString.Split(new string[] {"[", "]"}, StringSplitOptions.None);
+                            delimiterArray = delimiterArray.Where(s => ! string.IsNullOrEmpty(s)).ToArray();
+                            stringArray = FindStringArray(numbers, delimiterArray);
+                            return SumOfNumbers(stringArray);
+                        }
                         stringArray = FindStringArray(numbers, new string[] { delimiterString });
                         return SumOfNumbers(stringArray);
                     }
@@ -42,6 +49,11 @@ namespace CleanCodeAndTDD
             {
                 return int.Parse(numbers);
             }
+        }
+
+        private static bool HasMultipleDelimiters(string delimiterString)
+        {
+            return delimiterString.Contains("]") && delimiterString.Contains("[");
         }
 
         private static bool IsDelimiterString(string numbers)
