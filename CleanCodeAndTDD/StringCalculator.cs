@@ -21,15 +21,11 @@ namespace CleanCodeAndTDD
                 {
                     if (IsDelimiterString(numbers))
                     {
-                        var delimiterStartIndex = 3;
-                        var delimiterEndIndex = numbers.IndexOf("]\n");
-                        var delimiterLenght = delimiterEndIndex - delimiterStartIndex;
-                        var delimiterString = numbers.Substring(delimiterStartIndex, delimiterLenght);
+                        string delimiterString = CalculateDelimiterString(numbers);
 
                         if (HasMultipleDelimiters(delimiterString))
                         {
-                            var delimiterArray = delimiterString.Split(new string[] { "[", "]" }, StringSplitOptions.None);
-                            delimiterArray = delimiterArray.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+                            string[] delimiterArray = FindDelimiters(delimiterString);
                             stringArray = FindStringArray(numbers, delimiterArray);
                             return SumOfNumbers(stringArray);
                         }
@@ -49,6 +45,22 @@ namespace CleanCodeAndTDD
             {
                 return int.Parse(numbers);
             }
+        }
+
+        private static string[] FindDelimiters(string delimiterString)
+        {
+            var delimiterArray = delimiterString.Split(new string[] { "[", "]" }, StringSplitOptions.None);
+            delimiterArray = delimiterArray.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+            return delimiterArray;
+        }
+
+        private static string CalculateDelimiterString(string numbers)
+        {
+            var delimiterStartIndex = 3;
+            var delimiterEndIndex = numbers.IndexOf("]\n");
+            var delimiterLenght = delimiterEndIndex - delimiterStartIndex;
+            var delimiterString = numbers.Substring(delimiterStartIndex, delimiterLenght);
+            return delimiterString;
         }
 
         private static bool HasMultipleDelimiters(string delimiterString)
